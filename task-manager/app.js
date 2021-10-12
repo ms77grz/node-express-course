@@ -13,6 +13,8 @@ app.get('/hello', (req, res) => {
   res.send('hello');
 });
 
+app.use(express.static('./public'));
+
 app.use('/api/v1/tasks', tasksRouter);
 
 const port = 3000;
