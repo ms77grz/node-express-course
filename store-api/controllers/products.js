@@ -1,11 +1,9 @@
 const Product = require('../models/product');
 
 const getAllProductsStatic = async (req, res) => {
-  const products = await Product.find({})
-    .sort('name')
-    .select('name price')
-    .limit(4)
-    .skip(1);
+  const products = await Product.find({ price: { $gt: 30 } })
+    .sort('price')
+    .select('name price');
   if (!products.length) {
     throw new Error('No products here.');
   }
@@ -13,7 +11,7 @@ const getAllProductsStatic = async (req, res) => {
 };
 
 const getAllProducts = async (req, res) => {
-  const { featured, company, name, sort, fields } = req.query;
+  const { featured, company, name, sort, fields, nFilters } = req.query;
   // filter
   const query = {};
   if (featured) {
@@ -25,6 +23,26 @@ const getAllProducts = async (req, res) => {
   if (name) {
     query.name = { $regex: name, $options: 'i' };
   }
+  // numeric filters
+  if (nFilters) {
+    const opsMap = {
+      '>': '$gt',
+      '>=': '$gte',
+      '=': '$eq',
+      '<': '$lt',
+      '<=': '$lte',
+    };
+    const regEx = /\b(>|>=|=|<|<=)\b/g;
+    let filters = nFilters.replace(regEx, match => `-${opsMap[match]}-`);
+    const options = ['price', 'rating'];
+    filters = filters.split(',').forEach(item => {
+      const [field, operator, value] = item.split('-');
+      if (options.includes(field)) {
+        query[field] = { [operator]: Number(value) };
+      }
+    });
+  }
+  console.log(query);
   let result = Product.find(query);
   // sort
   if (sort) {
