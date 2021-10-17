@@ -1,0 +1,44 @@
+Arguments: 
+  /usr/bin/node /usr/bin/yarn add bcryptjs, cors, dotenv, express, express-async-errors, express-rate-limit, helmet, http-status-codes, joi, jsonwebtoken, mongoose, rate-limiter, swagger-ui-express, xss-clean, yamljs
+
+PATH: 
+  /home/magax/.local/bin:/home/magax/.bin:/home/magax/.local/bin:/home/magax/.bin:/home/magax/.local/bin:/home/magax/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/home/magax/.dotnet/tools:~/.local/bin:~/.local/bin:~/.local/bin
+
+Yarn version: 
+  1.22.15
+
+Node version: 
+  16.11.1
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/bcryptjs,: Not found
+      at Request.params.callback [as _callback] (/usr/lib/node_modules/yarn/lib/cli.js:67031:18)
+      at Request.self.callback (/usr/lib/node_modules/yarn/lib/cli.js:140885:22)
+      at Request.emit (node:events:390:28)
+      at Request.<anonymous> (/usr/lib/node_modules/yarn/lib/cli.js:141857:10)
+      at Request.emit (node:events:390:28)
+      at IncomingMessage.<anonymous> (/usr/lib/node_modules/yarn/lib/cli.js:141779:12)
+      at Object.onceWrapper (node:events:509:28)
+      at IncomingMessage.emit (node:events:402:35)
+      at endReadableNT (node:internal/streams/readable:1343:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+    "name": "jobs-api",
+    "version": "1.0.0",
+    "main": "app.js",
+    "scripts": {
+      "start": "nodemon app.js"
+    },
+    "license": "MIT"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
