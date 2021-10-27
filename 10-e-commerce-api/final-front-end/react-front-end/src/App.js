@@ -1,18 +1,18 @@
 import { useState } from 'react';
-const rootUrl = 'http://localhost:5000';
+// const rootUrl = 'http://localhost:5000';
 
 function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     if (!email || !password) return;
     const user = { email, password };
 
     try {
-      const url = `${rootUrl}/api/v1/auth/login`;
-      // const url = `/api/v1/auth/login`;
+      // const url = `${rootUrl}/api/v1/auth/login`;
+      const url = `/api/v1/auth/login`;
       await fetch(url, {
         method: 'POST',
         headers: {
@@ -28,13 +28,13 @@ function App() {
   };
 
   const fetchTesting = async () => {
-    const url = `${rootUrl}/api/v1`;
-    // const url = `/api/v1`;
+    // const url = `${rootUrl}/api/v1`;
+    const url = `/api/v1`;
     await fetch(url);
   };
   const fetchLogout = async () => {
-    const url = `${rootUrl}/api/v1/auth/logout`;
-    // const url = `/api/v1/auth/logout`;
+    // const url = `${rootUrl}/api/v1/auth/logout`;
+    const url = `/api/v1/auth/logout`;
     await fetch(url);
   };
 
@@ -51,7 +51,7 @@ function App() {
             className='form-input email-input'
             name='email'
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
           />
         </div>
         <div className='form-row'>
@@ -63,7 +63,7 @@ function App() {
             name='password'
             className='form-input password-input'
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
           />
         </div>
         <button type='submit' className='btn btn-block submit-btn'>
