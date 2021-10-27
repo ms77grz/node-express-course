@@ -3,6 +3,7 @@ require('express-async-errors');
 const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const app = express();
 
 const connectDB = require('./db/connect');
@@ -15,8 +16,10 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
+app.use(express.static('./public'));
+app.use(cors());
 
-app.get('/', (req, res) => {
+app.get('/api/v1', (req, res) => {
   console.log(req.signedCookies);
   res.send('e-commerce api');
 });
