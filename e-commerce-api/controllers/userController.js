@@ -21,7 +21,21 @@ const showCurrentUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: req.user });
 };
 
+// update user with user.save()
 const updateUser = async (req, res) => {
+  const { name, email } = req.body;
+  if (!name || !email) {
+    throw new CustomError.BadRequestError('Please provide all values');
+  }
+  const user = await User.findOne({ _id: req.user.userId });
+  (user.name = name), (user.email = email), await user.save();
+  const tokenUser = createTokenUser(user);
+  attachCookiesToResponse({ res, user: tokenUser });
+  res.status(StatusCodes.OK).json({ user: tokenUser });
+};
+
+// update user with findOneAndUpdate
+/* const updateUser = async (req, res) => {
   const { name, email } = req.body;
   if (!name || !email) {
     throw new CustomError.BadRequestError('Please provide all values');
@@ -34,7 +48,7 @@ const updateUser = async (req, res) => {
   const tokenUser = createTokenUser(user);
   attachCookiesToResponse({ res, user: tokenUser });
   res.status(StatusCodes.OK).json({ user: tokenUser });
-};
+}; */
 
 const updateUserPassword = async (req, res) => {
   const { oldPassword, newPassword } = req.body;
